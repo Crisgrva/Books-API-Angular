@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,flask,angular
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,flask,angular
 
+# VsCode directory
+.vscode/
+
 ### Angular ###
 ## Angular ##
 # compiled output

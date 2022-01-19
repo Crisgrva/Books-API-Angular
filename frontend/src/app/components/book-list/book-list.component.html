@@ -1,0 +1,13 @@
+<div class="list row">
+    <div class="col-md-6">
+        <h4>Books List</h4>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let book of books; let i = index" [class.active]="i == currentIndex" (click)="setActiveBook(book, i)">
+                {{ book.title }}
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <app-book-details [viewMode]="true" [currentBook]="currentBook"></app-book-details>
+    </div>
+</div>

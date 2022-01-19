@@ -1,0 +1,64 @@
+<div *ngIf="viewMode; else editable">
+    <div *ngIf="currentBook.id">
+        <h4>Book</h4>
+        <div>
+            <label><strong>Title:</strong></label> {{ currentBook.title }}
+        </div>
+        <div>
+            <label><strong>Author:</strong></label> {{ currentBook.author }}
+        </div>
+        <div>
+            <label><strong>Status:</strong></label> {{ currentBook.read ? "True" : "Pending" }}
+        </div>
+
+        <a class="badge badge-warning" routerLink="{{ currentBook.id }}">
+        Edit
+      </a>
+    </div>
+
+    <div *ngIf="!currentBook">
+        <br />
+        <p>Please click on a Book...</p>
+    </div>
+</div>
+
+<ng-template #editable>
+    <div *ngIf="currentBook.id" class="edit-form">
+        <h4>Book</h4>
+        <form>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" [(ngModel)]="currentBook.title" name="title" />
+            </div>
+            <div class="form-group">
+                <label for="description">Author</label>
+                <input type="text" class="form-control" id="author" [(ngModel)]="currentBook.author" name="author" />
+            </div>
+
+            <div class="form-group">
+                <label><strong>Status:</strong></label> {{ currentBook.read ? "True" : "False" }}
+            </div>
+        </form>
+
+        <button class="badge badge-primary mr-2" *ngIf="currentBook.read" (click)="updateRead(false)">
+        UnPublish
+      </button>
+        <button *ngIf="!currentBook.read" class="badge badge-primary mr-2" (click)="updateRead(true)">
+        Publish
+      </button>
+
+        <button class="badge badge-danger mr-2" (click)="deleteBook()">
+        Delete
+      </button>
+
+        <button type="submit" class="badge badge-success mb-2" (click)="updateBook()">
+        Update
+      </button>
+        <p>{{ message }}</p>
+    </div>
+
+    <div *ngIf="!currentBook.id">
+        <br />
+        <p>Cannot access this Book...</p>
+    </div>
+</ng-template>
