@@ -1,60 +1,41 @@
 <div *ngIf="viewMode; else editable">
-    <div *ngIf="currentBook.id">
-        <h4>Book</h4>
-        <div>
-            <label><strong>Title:</strong></label> {{ currentBook.title }}
-        </div>
-        <div>
-            <label><strong>Author:</strong></label> {{ currentBook.author }}
-        </div>
-        <div>
-            <label><strong>Status:</strong></label> {{ currentBook.read ? "True" : "Pending" }}
-        </div>
-
-        <a class="badge badge-warning" routerLink="{{ currentBook.id }}">
-        Edit
-      </a>
-    </div>
-
-    <div *ngIf="!currentBook">
-        <br />
-        <p>Please click on a Book...</p>
+    <div *ngIf="currentBook.id" class="d-flex">
+        <button type="button" class="btn btn-secondary btn-sm mx-1 mb-0" routerLink="{{ currentBook.id }}">Edit</button>
+        <button type="button" class="btn btn-danger btn-sm mx-1 mr-0 mb-0" (click)="deleteBook()" routerLink="#">Delete</button>
     </div>
 </div>
 
 <ng-template #editable>
     <div *ngIf="currentBook.id" class="edit-form">
-        <h4>Book</h4>
-        <form>
-            <div class="form-group">
-                <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" [(ngModel)]="currentBook.title" name="title" />
-            </div>
-            <div class="form-group">
-                <label for="description">Author</label>
-                <input type="text" class="form-control" id="author" [(ngModel)]="currentBook.author" name="author" />
-            </div>
+        <div class="alert alert-success m-4" role="alert" *ngIf="message">
+            {{ message }}
+        </div>
+        <div class="shadow-sm p-3 mb-5 bg-body rounded p-3">
+            <h4>{{ currentBook.title }}</h4>
+            <form>
+                <div class="form-group">
+                    <label for="title">New title</label>
+                    <input type="text" class="form-control" id="title" [(ngModel)]="currentBook.title" name="title" />
+                </div>
+                <div class="form-group">
+                    <label for="description">New author</label>
+                    <input type="text" class="form-control" id="author" [(ngModel)]="currentBook.author" name="author" />
+                </div>
 
-            <div class="form-group">
-                <label><strong>Status:</strong></label> {{ currentBook.read ? "True" : "False" }}
-            </div>
-        </form>
+                <div class="form-group mt-4">
+                    <label><strong>Read:</strong></label> {{ currentBook.read ? "True" : "False" }}
+                    <button class="btn btn-outline-primary btn-sm mx-1" *ngIf="currentBook.read" (click)="updateRead(false)"> Mark as unread </button>
+                    <button *ngIf="!currentBook.read" class="btn btn-outline-primary btn-sm" (click)="updateRead(true)"> Mark as read </button>
+                </div>
+            </form>
+        </div>
 
-        <button class="badge badge-primary mr-2" *ngIf="currentBook.read" (click)="updateRead(false)">
-        UnPublish
-      </button>
-        <button *ngIf="!currentBook.read" class="badge badge-primary mr-2" (click)="updateRead(true)">
-        Publish
-      </button>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-danger btn-sm mx-1" (click)="deleteBook()">Delete</button>
+            <button type="submit" class="btn btn-success btn-sm mx-1" (click)="updateBook()"> Update </button>
+        </div>
 
-        <button class="badge badge-danger mr-2" (click)="deleteBook()">
-        Delete
-      </button>
 
-        <button type="submit" class="badge badge-success mb-2" (click)="updateBook()">
-        Update
-      </button>
-        <p>{{ message }}</p>
     </div>
 
     <div *ngIf="!currentBook.id">

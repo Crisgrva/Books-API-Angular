@@ -1,6 +1,6 @@
-<div>
+<div class="">
     <div class="submit-form">
-        <div *ngIf="!submitted">
+        <div *ngIf="!submitted" class="shadow-sm p-3 mb-5 bg-body rounded p-3">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" required [(ngModel)]="book.title" name="title" />
@@ -10,13 +10,21 @@
                 <label for="author">Author</label>
                 <input type="text" class="form-control" id="author" required [(ngModel)]="book.author" name="author" />
             </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="True" id="flexCheckDefault" name="read" required [(ngModel)]="book.read">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Have you already read this book?
+                    </label>
+                </div>
+            </div>
 
-            <button (click)="saveBook()" class="btn btn-success">Submit</button>
+            <button (click)="saveBook()" class="btn btn-success" href="#">Save Book</button>
         </div>
 
         <div *ngIf="submitted">
             <h4>Book was submitted successfully!</h4>
-            <button class="btn btn-success" (click)="newBook()">Add</button>
+            <button class="btn btn-success" (click)="newBook()">Add Other Book</button>
         </div>
     </div>
 </div>

@@ -23,6 +23,7 @@ export class AddBookComponent implements OnInit {
     const data = {
       title: this.book.title,
       author: this.book.author,
+      read: this.book.read
     };
 
     this.bookService.create(data).subscribe({
