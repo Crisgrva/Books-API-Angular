@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BookService } from './services/book.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+
+  constructor(
+    private bookService: BookService
+  ) {
+    this.bookService.getBooks().subscribe(resp => {
+      console.log(resp);
+
+    })
+  }
 }
